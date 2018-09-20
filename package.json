@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/mezterious/bibliotheca#readme",
   "devDependencies": {
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0",
     "typescript": "^3.0.3"
   }
 }
