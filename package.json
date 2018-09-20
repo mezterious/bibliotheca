@@ -4,7 +4,8 @@
   "description": "Simple API to store books",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mezterious/bibliotheca/issues"
   },
-  "homepage": "https://github.com/mezterious/bibliotheca#readme"
+  "homepage": "https://github.com/mezterious/bibliotheca#readme",
+  "devDependencies": {
+    "typescript": "^3.0.3"
+  }
 }
