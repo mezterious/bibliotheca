@@ -1,5 +1,5 @@
 {
-  "typescript.tsdk": "./node_modules/typescript/lib",
   "prettier.tslintIntegration": true,
-  "tslint.nodePath": "./node_modules"
+  "tslint.nodePath": "./node_modules",
+  "typescript.tsdk": "./node_modules/typescript/lib"
 }
