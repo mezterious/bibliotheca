@@ -1,9 +1,12 @@
 import express from 'express';
+import { router } from './app/routes';
 
 const app = express();
 
-app.listen(8000, () => console.log('Server running on 8000!'));
+app.use('/api', router);
 
 app.get('/', (_, res) => {
   res.send("Awesome! We're live debugging this!");
 });
+
+export { app };

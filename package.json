@@ -4,7 +4,7 @@
   "description": "Simple API to store books",
   "main": "server.js",
   "scripts": {
-    "start": "ts-node app/server.ts",
+    "start": "ts-node server.ts",
     "dev": "nodemon",
     "test": "jest",
     "test:watch": "jest --watch"
