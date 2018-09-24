@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 
-function createBook(req: Request, res: Response, next: NextFunction): any {
+async function createBook(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<any> {
   console.log('Creating a book');
   console.log(req);
   console.log(res);
