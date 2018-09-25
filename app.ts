@@ -1,6 +1,7 @@
 import express, { Request } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import { morganStream } from './app/config/logger';
 import { v4 } from 'uuid';
 
 import { router } from './app/routes';
@@ -12,9 +13,9 @@ morgan.token('id', (req: Request) => {
 });
 
 morgan.format(
-  'kitchen-sink',
+  'my-format',
   // tslint:disable-next-line:max-line-length
-  ':date[iso] :id :http-version :method :url :referrer :remote-addr :remote-user :response-time :status',
+  ':date[iso] :id :method :url :status :referrer :remote-addr :remote-user :response-time',
 );
 
 // Add middleware
@@ -22,7 +23,7 @@ app.use((req, _res, next) => {
   req.id = v4();
   next();
 });
-app.use(morgan('kitchen-sink'));
+app.use(morgan('my-format', morganStream));
 app.use(
   cors({
     origin: ['http://localhost:3001'],
