@@ -1,5 +1,6 @@
-import winston from 'winston';
+import winston, { format } from 'winston';
 import { Options } from 'morgan';
+// import { TransformableInfo } from 'logform';
 
 const logger = winston.createLogger({
   level: 'info',
@@ -17,14 +18,16 @@ const logger = winston.createLogger({
   ],
 });
 
-//
-// If we're not in production then log to the `console` with the format:
-// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-//
+const consoleFormat = format.printf(
+  (info): string => {
+    return `${info.level}: ${JSON.stringify(info.message)}`;
+  },
+);
+
 if (process.env.NODE_ENV !== 'production') {
   logger.add(
     new winston.transports.Console({
-      format: winston.format.simple(),
+      format: format.combine(format.colorize(), format.splat(), consoleFormat),
     }),
   );
 }
@@ -32,7 +35,11 @@ if (process.env.NODE_ENV !== 'production') {
 const morganStream: Options = {
   stream: {
     write: (message: string) => {
-      logger.info(message.trim());
+      try {
+        logger.info(JSON.parse(message));
+      } catch (error) {
+        logger.info(message);
+      }
     },
   },
 };

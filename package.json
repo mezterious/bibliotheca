@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/mezterious/bibliotheca#readme",
   "devDependencies": {
+    "@types/body-parser": "^1.17.0",
     "@types/boom": "^7.2.0",
     "@types/cors": "^2.8.4",
     "@types/express": "^4.16.0",
@@ -36,7 +37,6 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
-    "@types/body-parser": "^1.17.0",
     "body-parser": "^1.18.3",
     "boom": "^7.2.0",
     "cors": "^2.8.4",
