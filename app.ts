@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import helmet from 'helmet';
 import { v4 } from 'uuid';
+import { addResponseBody } from './app/middlewares/responseBody';
 
 import { router } from './app/routes';
 
@@ -23,9 +24,20 @@ app.use((req: Request, _res: Response, next: NextFunction) => {
   next();
 });
 
+// Get response body
+app.use(addResponseBody);
+
 // Customise logging
 morgan.token('id', (req: Request) => {
   return req.id;
+});
+
+morgan.token('request-body', (req: Request) => {
+  return req.body;
+});
+
+morgan.token('response-body', (_req: Request, res: Response) => {
+  return res.body;
 });
 
 app.use(
@@ -40,7 +52,21 @@ app.use(
       httpVersion: tokens['http-version'](req, res),
       referrer: tokens.referrer(req, res),
       userAgent: tokens['user-agent'](req, res),
-      // body: tokens.body(req, res),
+      status: tokens.status(req, res),
+      body: tokens['request-body'](req, res),
+    });
+  },     morganStream),
+);
+
+app.use(
+  morgan((tokens: any, req: Request, res: Response): string => {
+    return JSON.stringify({
+      type: 'response',
+      requestId: tokens.id(req, res),
+      timestamp: tokens.date(req, res, 'iso'),
+      status: tokens.status(req, res),
+      responseTime: tokens['response-time'](req, res),
+      body: tokens['response-body'](req, res),
     });
   },     morganStream),
 );
