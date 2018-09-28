@@ -3,6 +3,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { morganStream } from './app/config/logger';
 import bodyParser from 'body-parser';
+import compression from 'compression';
+import helmet from 'helmet';
 import { v4 } from 'uuid';
 
 import { router } from './app/routes';
@@ -43,6 +45,8 @@ app.use(
   },     morganStream),
 );
 
+app.use(helmet());
+
 // CORS
 app.use(
   cors({
@@ -51,6 +55,8 @@ app.use(
     allowedHeaders: ['Content-Type'],
   }),
 );
+
+app.use(compression());
 
 // Mount routes
 app.use('/api', router);
