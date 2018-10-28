@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post(
   '/',
-  validator.validate('post', '/books'),
+  asyncHandler(validator.validate('post', '/books')),
   asyncHandler(booksController.createBook),
 );
 

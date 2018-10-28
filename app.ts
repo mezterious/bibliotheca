@@ -7,6 +7,7 @@ import compression from 'compression';
 import helmet from 'helmet';
 import { v4 } from 'uuid';
 import { addResponseBody } from './app/middlewares/responseBody';
+import { handleValidationError } from './app/middlewares/errors';
 
 import { router } from './app/routes';
 
@@ -92,5 +93,7 @@ app.get('/', (_, res) => {
     message: "Awesome! We're live debugging this!",
   });
 });
+
+app.use(handleValidationError);
 
 export { app };
