@@ -1,0 +1,76 @@
+openapi: '3.0.2'
+info:
+  title: 'Bibliotheca API'
+  description: 'Store, retrieve and update books.'
+  version: '1.0'
+  contact:
+    name: 'Bibliotheca API'
+    email: 'mezteriousone@gmail.com'
+servers:
+  - url: 'http://localhost:3000/v1'
+    description: 'Local server'
+paths:
+  /books:
+    post:
+      summary: 'Add a new book.'
+      requestBody:
+        $ref: '#/components/requestBodies/BookBody'
+      responses:
+        201:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+components:
+  schemas:
+    Book:
+      title: Book
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          description: The title of the book
+          example: 'Mistborn: The Final Empire'
+        published:
+          type: string
+          pattern: ^[12]\d{3}$
+          description: The full year the book was published
+          example: 1999
+        series:
+          type: object
+          properties:
+            title:
+              type: string
+              description: The title of the series
+              example: Mistborn Trilogy
+            index:
+              type: integer
+              description: The order of the book in the series
+              example: 1
+          required:
+            - title
+            - index
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - title
+        - published
+  requestBodies:
+    BookBody:
+      description: A JSON object containing book information
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Book'
